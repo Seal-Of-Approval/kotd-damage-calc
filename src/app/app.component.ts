@@ -19,7 +19,7 @@ import {
   styleUrls: ['./app.component.css'],
 })
 export class AppComponent {
-  Element = Element
+  Element = Element;
   typeToIcon = typeToIcon;
   toWeapon = toWeapon;
   averageBaseDamage = 3.5;
@@ -108,6 +108,10 @@ export class AppComponent {
   calculateLevelDamage(weapon: IWeapon, level: number) {
     if (weapon.ID === 0) return 0;
     return 0.1 + 0.5 * (0.25 * level);
+  }
+
+  onRecommendationSelect(event) {
+    console.log(event);
   }
 
   get weaponRecommendations() {

@@ -104,7 +104,11 @@
 >
   <ng-template pTemplate="header">Recommendations</ng-template>  
   <ng-template pTemplate="content">
-    <p-table [value]="weaponRecommendations">
+    <p-table
+      [value]="weaponRecommendations"
+      selectionMode="single"
+      (onRowSelect)="onRecommendationSelect($event)"
+    >
       <ng-template pTemplate="header">
         <tr>
           <th>ID</th>
