@@ -1,0 +1,136 @@
+<div class="flex flex-column align-items-center">
+  <p-card header="Boss" class="mb-4 card">
+    <div class="grid">
+      <div class="col-12 md:col-4">
+        <div class="flex flex-column input">
+          <span>Element Weakness</span>
+          <p-multiSelect
+            [options]="weaknesses"
+            [(ngModel)]="boss.weaknesses"
+            [filter]="true"
+          ></p-multiSelect>
+        </div>
+      </div>
+      <div class="col-12 md:col-4">
+        <div class="flex flex-column input">
+          <span>Element Resist</span>
+          <p-multiSelect
+            [options]="weaknesses"
+            [(ngModel)]="boss.resists"
+            [filter]="true"
+          ></p-multiSelect>
+        </div>
+      </div>
+      <div class="col-12 md:col-4">
+        <div class="flex flex-column input">
+          <span>Boss Type</span>
+          <p-dropdown
+            [options]="types"
+            [(ngModel)]="boss.type"
+            [filter]="true"
+          ></p-dropdown>
+        </div>
+      </div>
+    </div>
+  </p-card>
+  <p-card header="Loadout" class="mb-4 card">
+    <div class="grid">
+      <div class="col-10 md:col-8">
+        <div class="input">
+          <p-autoComplete
+            [(ngModel)]="result"
+            [suggestions]="suggestions"
+            field="label"
+            [multiple]="true"
+            (completeMethod)="search($event)"
+          >
+            <ng-template let-item pTemplate="selectedItem">
+              <span>{{ item.name }}</span>
+            </ng-template>
+            <ng-template let-item pTemplate="item">
+              <div>{{ typeToIcon(item.type) }}{{ item.name }}</div>
+            </ng-template>
+          </p-autoComplete>
+        </div>
+      </div>
+      <div class="col-2 justify-content-end flex">
+        <p-button
+          type="text"
+          (click)="display = true"
+          icon="pi pi-book"
+        ></p-button>
+      </div>
+      <div class="col-12 md:col-4">
+        <div class="input">
+          <h5 class="mt-0">Average Level: {{ averageLevel }}</h5>
+          <p-slider [(ngModel)]="averageLevel" [min]="1" [max]="50"></p-slider>
+        </div>
+      </div>
+    </div>
+    <div class="grid">
+      <div
+        *ngFor="let item of loadout | keyvalue"
+        class="flex align-items-center mt-2 col-6 md:col-4 lg:col-3"
+      >
+        <div class="amount">
+          <p-inputNumber
+            label="Test"
+            [(ngModel)]="loadout[item.key]"
+            mode="decimal"
+            [size]="1"
+            [showButtons]="true"
+            [min]="1"
+            decrementButtonClass="p-button-secondary"
+            incrementButtonClass="p-button-secondary"
+            incrementButtonIcon="pi pi-plus"
+            decrementButtonIcon="pi pi-minus"
+          ></p-inputNumber>
+        </div>
+        <div class="weapon ml-4">
+          {{ toWeapon(item.key).name }}
+        </div>
+      </div>
+    </div>
+  </p-card>
+  <p-card header="Average Damage" class="card">
+    {{ damage }}
+  </p-card>
+</div>
+
+<p-sidebar
+  [(visible)]="display"
+  position="right"
+  [style]="{ width: '30em', maxWidth: '100vw' }"
+>
+  <ng-template pTemplate="header">Recommendations</ng-template>  
+  <ng-template pTemplate="content">
+    <p-table [value]="weaponRecommendations">
+      <ng-template pTemplate="header">
+        <tr>
+          <th>ID</th>
+          <th pSortableColumn="name" style="width:20%">
+            Name <p-sortIcon field="name"></p-sortIcon>
+          </th>
+          <th pSortableColumn="averageDamage" style="width:20%">
+            Damage <p-sortIcon field="averageDamage"></p-sortIcon>
+          </th>
+          <th pSortableColumn="type" style="width:20%">
+            Type <p-sortIcon field="type"></p-sortIcon>
+          </th>
+          <th pSortableColumn="element" style="width:20%">
+            Element <p-sortIcon field="element"></p-sortIcon>
+          </th>
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="body" let-item>
+        <tr>
+          <td>{{ item.ID }}</td>
+          <td>{{ item.name }}</td>
+          <td>{{ item.averageDamage }}</td>
+          <td>{{ typeToIcon(item.type) }}</td>
+          <td>{{ Element[item.element] }}</td>
+        </tr>
+      </ng-template>
+    </p-table>
+  </ng-template>
+</p-sidebar>
