@@ -136,4 +136,12 @@ export class AppComponent {
       ? 1
       : 0;
   }
+
+  set selectedRecommendation(value: IWeapon){
+    if(this.result && this.result.find(x => x.ID === value.ID))
+      return;
+    const tmp = this.result ?? [];
+    tmp.push(value);
+    this.result = [...tmp];
+  }
 }
