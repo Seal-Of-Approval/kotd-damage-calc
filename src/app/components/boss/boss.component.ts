@@ -6,6 +6,7 @@ import { Option } from 'src/app/util';
 import { HttpClient } from '@angular/common/http';
 import { lastValueFrom } from 'rxjs';
 import { IRedditPost } from 'src/app/interfaces/reddit';
+import { MessageService } from 'primeng/api';
 // import { MessageService } from 'primeng/api';
 @Component({
   selector: 'app-boss',
@@ -29,7 +30,7 @@ export class BossComponent implements OnInit {
     .map((x: string) => ({ label: x, value: Type[x] }));
 
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient, private messageService: MessageService) { }
 
   ngOnInit(): void {
     this.fetchBoss("zcz0d2").catch(console.error);
@@ -44,7 +45,8 @@ export class BossComponent implements OnInit {
       boss.weaknesses = elements.weaknesses;
       boss.resists = elements.resistances;      
     } catch (error) {
-      // this.messageService.add({severity: "error", summary:"Error fetching boss with that ID.", detail: error})
+      this.messageService.add({severity: "error", summary:"Error fetching boss with that ID.", detail: "The ID is probably not valid"});
+      console.error(error)
     }
   }
 

@@ -19,22 +19,22 @@
 
 <div class="fab shadow-8">
   <p-button
-        type="text"
-        class="p-button-rounded"
-        (click)="display = true"
-        icon="pi pi-book"
-      ></p-button>
+  type="text"
+  class="p-button-rounded"
+  (click)="display = true"
+  icon="pi pi-book"
+  ></p-button>
 </div>
 
 <p-sidebar
-  [(visible)]="display"
-  position="right"
-  [style]="{ width: '30em', maxWidth: '100vw' }"
+[(visible)]="display"
+position="right"
+[style]="{ width: '30em', maxWidth: '100vw' }"
 >
-  <ng-template pTemplate="header">Recommendations</ng-template>  
-  <ng-template pTemplate="content">
-    <app-item-recommendation [boss]="boss" (selectRecommendation)="selectedRecommendation($event)"></app-item-recommendation>
+<ng-template pTemplate="header">Recommendations</ng-template>  
+<ng-template pTemplate="content">
+  <app-item-recommendation [boss]="boss" (selectRecommendation)="selectedRecommendation($event)"></app-item-recommendation>
   </ng-template>
 </p-sidebar>
 
-<!-- <p-toast></p-toast> -->
+<p-toast></p-toast>

@@ -10,6 +10,7 @@ import { LoadoutComponent } from './components/loadout/loadout.component';
 import { BossComponent } from './components/boss/boss.component';
 import { HttpClientModule } from '@angular/common/http';
 import { ToastModule } from 'primeng/toast'
+import { MessageService } from 'primeng/api';
 
 @NgModule({
   imports: [
@@ -26,6 +27,7 @@ import { ToastModule } from 'primeng/toast'
     LoadoutComponent, 
     BossComponent
   ],
+  providers: [MessageService],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

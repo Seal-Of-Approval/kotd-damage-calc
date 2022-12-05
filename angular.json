@@ -29,6 +29,23 @@
             "scripts": []
           },
           "configurations": {
+            "development": {
+              "buildOptimizer": false,
+              "optimization": false,
+              "vendorChunk": true,
+              "extractLicenses": false,
+              "sourceMap": true,
+              "namedChunks": true,
+              "styles": [
+                "src/styles.css",
+                "node_modules/primeng/resources/themes/saga-blue/theme.css",
+                "node_modules/primeng/resources/primeng.min.css",
+                "node_modules/primeflex/primeflex.css",
+                "node_modules/primeicons/primeicons.css"
+              ],
+              "scripts": [],
+              "assets": ["src/favicon.ico", "src/assets"]
+            },
             "production": {
               "fileReplacements": [
               ],
@@ -54,14 +71,15 @@
         },
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
-          "options": {
-            "browserTarget": "damage-calc:build"
-          },
           "configurations": {
             "production": {
               "browserTarget": "damage-calc:build:production"
+            },
+            "development": {
+              "browserTarget": "damage-calc:build:development"
             }
-          }
+          },
+          "defaultConfiguration": "development"
         },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
