@@ -33,7 +33,6 @@ export class BossComponent implements OnInit {
   constructor(private http: HttpClient, private messageService: MessageService) { }
 
   ngOnInit(): void {
-    this.fetchBoss("zcz0d2").catch(console.error);
   }
 
   async fetchBoss(id: string){
