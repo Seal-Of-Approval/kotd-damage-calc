@@ -44,6 +44,7 @@ export class BossComponent implements OnInit {
       const boss: IBoss = this.boss;
       boss.weaknesses = elements.weaknesses;
       boss.resists = elements.resistances;      
+      this.messageService.add({severity: "success", summary:"Fetched boss", detail: "Elements updated"});
     } catch (error) {
       this.messageService.add({severity: "error", summary:"Error fetching boss with that ID.", detail: "The ID is probably not valid"});
       console.error(error)
