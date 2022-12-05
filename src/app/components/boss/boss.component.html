@@ -1,0 +1,32 @@
+<div class="grid">
+    <div class="col-12 md:col-4">
+      <div class="flex flex-column input">
+        <span>Element Weakness</span>
+        <p-multiSelect
+          [options]="weaknesses"
+          [(ngModel)]="boss.weaknesses"
+          [filter]="true"
+        ></p-multiSelect>
+      </div>
+    </div>
+    <div class="col-12 md:col-4">
+      <div class="flex flex-column input">
+        <span>Element Resist</span>
+        <p-multiSelect
+          [options]="weaknesses"
+          [(ngModel)]="boss.resists"
+          [filter]="true"
+        ></p-multiSelect>
+      </div>
+    </div>
+    <div class="col-12 md:col-4">
+      <div class="flex flex-column input">
+        <span>Boss Type</span>
+        <p-dropdown
+          [options]="types"
+          [(ngModel)]="boss.type"
+          [filter]="true"
+        ></p-dropdown>
+      </div>
+    </div>
+  </div>

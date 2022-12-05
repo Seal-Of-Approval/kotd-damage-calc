@@ -1,5 +1,11 @@
 import { Weapons } from './items';
 import { Type } from './interfaces/type';
+import { IWeapon } from './interfaces/item';
+import { Loadout } from './interfaces/raid';
+import { IBoss } from './interfaces/boss';
+
+export const averageBaseDamage = 3.5;
+
 
 export type Option<T> = {
   label: string;
@@ -44,4 +50,36 @@ export function getTypeData(type: Type) {
     case Type.Magic:
       return { strong: Type.Melee, weak: Type.Ranged };
   }
+}
+
+
+export function calculateDamage(loadout: Loadout, averageLevel: number, boss: IBoss) {
+  return Object.entries(loadout).reduce((curr, entry) => {
+    const [key, val] = entry;
+    const weapon = toWeapon(key);
+    const element = boss.weaknesses.includes(weapon.element)
+      ? 1
+      : boss.resists.includes(weapon.element)
+      ? -1
+      : 0;
+    const typeData = getTypeData(boss.type);
+    const type =
+      typeData.weak === weapon.type
+        ? 1
+        : typeData.strong === weapon.type
+        ? -1
+        : 0;
+    return (
+      curr +
+      val *
+        (averageBaseDamage +
+          calculateLevelDamage(weapon, averageLevel) +
+          weapon.averageDamage * getDamageModifier(element, type))
+    );
+  }, 0);
+}
+
+export function calculateLevelDamage(weapon: IWeapon, level: number) {
+  if (weapon.ID === 0) return 0;
+  return 0.1 + 0.5 * (0.25 * level);
 }

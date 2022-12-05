@@ -1,0 +1,50 @@
+<div class="grid">
+    <div class="col-12 md:col-3">
+        <div class="input">
+          <h5 class="mt-0">Average Level: {{ averageLevel }}</h5>
+          <p-slider [(ngModel)]="averageLevel" [min]="1" [max]="50"></p-slider>
+        </div>
+      </div>
+    <div class="col-12">
+      <div class="input">
+        <p-autoComplete
+          [(ngModel)]="result"
+          [suggestions]="suggestions"
+          field="label"
+          [multiple]="true"
+          (completeMethod)="search($event)"
+        >
+          <ng-template let-item pTemplate="selectedItem">
+            <span>{{ item.name }}</span>
+          </ng-template>
+          <ng-template let-item pTemplate="item">
+            <div>{{ typeToIcon(item.type) }}{{ item.name }}</div>
+          </ng-template>
+        </p-autoComplete>
+      </div>
+    </div>
+  </div>
+  <div class="grid">
+    <div
+      *ngFor="let item of loadout | keyvalue"
+      class="flex align-items-center mt-2 col-6 md:col-4 lg:col-3"
+    >
+      <div class="amount">
+        <p-inputNumber
+          label="Test"
+          [(ngModel)]="loadout[item.key]"
+          mode="decimal"
+          [size]="1"
+          [showButtons]="true"
+          [min]="1"
+          decrementButtonClass="p-button-secondary"
+          incrementButtonClass="p-button-secondary"
+          incrementButtonIcon="pi pi-plus"
+          decrementButtonIcon="pi pi-minus"
+        ></p-inputNumber>
+      </div>
+      <div class="weapon ml-4">
+        {{ toWeapon(item.key).name }}
+      </div>
+    </div>
+  </div>

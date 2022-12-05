@@ -1,21 +1,7 @@
-p {
-  font-family: Lato;
-}
 .input,
 .input::ng-deep .p-multiselect,
 .input::ng-deep .p-autocomplete,
 .input::ng-deep .p-inputtext,
 .input::ng-deep .p-dropdown {
   width: 100%;
-}
-
-.card {
-  width: 850px;
-  max-width: 100%;
-}
-
-.fab{
-  position: fixed;
-  bottom: 30px;
-  right: 30px;
 }

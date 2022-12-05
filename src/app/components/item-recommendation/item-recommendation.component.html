@@ -1,0 +1,28 @@
+<p-table [value]="weaponRecommendations" selectionMode="single" [(selection)]="selectedRecommendation" dataKey="ID">
+    <ng-template pTemplate="header">
+      <tr>
+        <th>ID</th>
+        <th pSortableColumn="name" style="width:20%">
+          Name <p-sortIcon field="name"></p-sortIcon>
+        </th>
+        <th pSortableColumn="averageDamage" style="width:20%">
+          Damage <p-sortIcon field="averageDamage"></p-sortIcon>
+        </th>
+        <th pSortableColumn="type" style="width:20%">
+          Type <p-sortIcon field="type"></p-sortIcon>
+        </th>
+        <th pSortableColumn="element" style="width:20%">
+          Element <p-sortIcon field="element"></p-sortIcon>
+        </th>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-item>
+      <tr [pSelectableRow]="item">
+        <td>{{ item.ID }}</td>
+        <td>{{ item.name }}</td>
+        <td>{{ item.averageDamage }}</td>
+        <td>{{ typeToIcon(item.type) }}</td>
+        <td>{{ Element[item.element] }}</td>
+      </tr>
+    </ng-template>
+  </p-table>
