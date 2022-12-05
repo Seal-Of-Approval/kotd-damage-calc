@@ -73,13 +73,12 @@ export function calculateDamage(loadout: Loadout, averageLevel: number, boss: IB
       curr +
       val *
         (averageBaseDamage +
-          calculateLevelDamage(weapon, averageLevel) +
+          calculateLevelDamage(averageLevel) +
           weapon.averageDamage * getDamageModifier(element, type))
     );
   }, 0);
 }
 
-export function calculateLevelDamage(weapon: IWeapon, level: number) {
-  if (weapon.ID === 0) return 0;
+export function calculateLevelDamage(level: number) {
   return 0.1 + 0.5 * (0.25 * level);
 }
