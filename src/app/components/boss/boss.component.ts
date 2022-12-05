@@ -43,7 +43,7 @@ export class BossComponent implements OnInit {
       return;
     try {
       this.fetching = true;
-      const url = `https://cors-anywhere.herokuapp.com/https://reddit.com/${id}/.json?raw_json=1`;
+      const url = `https://proxy.cors.sh/https://reddit.com/${id}/.json?raw_json=1`;
       const data: IRedditPost = <IRedditPost>await lastValueFrom(this.http.get(url));
       const elements = this.extractElements(data);
       const boss: IBoss = this.boss;
@@ -62,8 +62,8 @@ export class BossComponent implements OnInit {
     const text = JSON.stringify(data); // lazy regex 
     const weaknessRE = /(?<Weakness>\w*(?=\sWeakness))/;
     const resistanceRE = /(?<Resistance>\w*(?=\sResistance))/
-    const weaknesses =  [...new Set(weaknessRE.exec(text).map(x => Element[x]).filter(x => x))];
-    const resistances = [...new Set(resistanceRE.exec(text).map(x => Element[x]).filter(x => x))];
+    const weaknesses =  [...new Set(weaknessRE.exec(text)?.map(x => Element[x]).filter(x => x))];
+    const resistances = [...new Set(resistanceRE.exec(text)?.map(x => Element[x]).filter(x => x))];
     return {weaknesses, resistances}
   }
 }
