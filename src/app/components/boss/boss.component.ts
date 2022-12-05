@@ -37,6 +37,9 @@ export class BossComponent implements OnInit {
   }
 
   async fetchBoss(id: string){
+    id = id?.trim() ?? "";
+    if(id === "")
+      return;
     try {
       const url = `https://cors-anywhere.herokuapp.com/https://reddit.com/${id}/.json?raw_json=1`;
       const data: IRedditPost = <IRedditPost>await lastValueFrom(this.http.get(url));
@@ -46,7 +49,7 @@ export class BossComponent implements OnInit {
       boss.resists = elements.resistances;      
       this.messageService.add({severity: "success", summary:"Fetched boss", detail: "Elements updated"});
     } catch (error) {
-      this.messageService.add({severity: "error", summary:"Error fetching boss with that ID.", detail: "The ID is probably not valid"});
+      this.messageService.add({severity: "error", summary:"Error fetching boss with that ID.", detail: "The ID is probably not valid. " + JSON.stringify(error)});
       console.error(error)
     }
   }
