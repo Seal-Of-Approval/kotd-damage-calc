@@ -2,7 +2,7 @@
     <div class="col-12">
         <div class="p-inputgroup">
             <input #bossID type="text" pInputText placeholder="ID">   
-            <button type="button" pButton pRipple icon="pi pi-check" styleClass="p-button-warn" [disabled]="bossID.value === ''" (click)="fetchBoss(bossID.value)"></button>      
+            <button type="button" pButton pRipple icon="pi pi-check" styleClass="p-button-warn" [disabled]="bossID.value === '' || fetching" (click)="fetchBoss(bossID.value)"></button>      
         </div>
     </div>
     <div class="col-12 md:col-4">

@@ -17,6 +17,8 @@ export class BossComponent implements OnInit {
   Element = Element;
   Type = Type;
   
+  fetching = false;
+
   @Input() boss: IBoss;
   
   weaknesses: Option<Element>[] = Object.keys(Element)
@@ -40,6 +42,7 @@ export class BossComponent implements OnInit {
     if(id === "")
       return;
     try {
+      this.fetching = true;
       const url = `https://cors-anywhere.herokuapp.com/https://reddit.com/${id}/.json?raw_json=1`;
       const data: IRedditPost = <IRedditPost>await lastValueFrom(this.http.get(url));
       const elements = this.extractElements(data);
@@ -48,8 +51,10 @@ export class BossComponent implements OnInit {
       boss.resists = elements.resistances;      
       this.messageService.add({severity: "success", summary:"Fetched boss", detail: "Elements updated"});
     } catch (error) {
-      this.messageService.add({severity: "error", summary:"Error fetching boss with that ID.", detail: "The ID is probably not valid. " + JSON.stringify(error)});
+      this.messageService.add({severity: "error", summary:"Error fetching boss with that ID.", detail: JSON.stringify(error)});
       console.error(error)
+    }finally{
+      this.fetching = false;
     }
   }
 
