@@ -26,7 +26,6 @@ export class AppComponent {
   display = false;
 
   get damage() {
-    console.log(this.averageLevel)
     const dmg = calculateDamage(this.loadout, this.averageLevel, this.boss);
     return Math.round((dmg + Number.EPSILON) * 10) / 10;
   }
