@@ -12,6 +12,8 @@ import { SliderModule } from 'primeng/slider';
 import { SidebarModule } from 'primeng/sidebar';
 import { DataViewModule } from 'primeng/dataview';
 import { TableModule } from 'primeng/table';
+import { InputTextModule } from 'primeng/inputtext';
+import { RippleModule } from 'primeng/ripple';
 
 @NgModule({
   imports: [
@@ -22,10 +24,12 @@ import { TableModule } from 'primeng/table';
     ButtonModule,
     CardModule,
     InputNumberModule,
+    InputTextModule,
     MultiSelectModule,
     SliderModule,
     SidebarModule,
     DataViewModule,
+    RippleModule,
     TableModule,
   ],
   exports: [
@@ -34,10 +38,12 @@ import { TableModule } from 'primeng/table';
     CardModule,
     DropdownModule,
     MultiSelectModule,
+    InputTextModule,
     InputNumberModule,
     SliderModule,
     SidebarModule,
     DataViewModule,
+    RippleModule,
     TableModule,
   ],
 })

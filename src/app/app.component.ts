@@ -44,4 +44,15 @@ export class AppComponent {
     this.loadout[value.ID] ??= 1;
     this.loadout = {...this.loadout}
   }
+
+  reset(){
+    this.loadout = {};
+    this.boss = {
+      ID: undefined,
+      name: "",
+      weaknesses: [],
+      resists: [],
+      type: Type.Undefined,
+    };
+  }
 }

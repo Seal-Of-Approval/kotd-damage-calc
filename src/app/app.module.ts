@@ -8,10 +8,24 @@ import { PrimeModule } from './components/prime.module';
 import { ItemRecommendationComponent } from './components/item-recommendation/item-recommendation.component';
 import { LoadoutComponent } from './components/loadout/loadout.component';
 import { BossComponent } from './components/boss/boss.component';
+import { HttpClientModule } from '@angular/common/http';
+import { ToastModule } from 'primeng/toast'
 
 @NgModule({
-  imports: [BrowserModule, BrowserAnimationsModule, FormsModule, PrimeModule],
-  declarations: [AppComponent, ItemRecommendationComponent, LoadoutComponent, BossComponent],
+  imports: [
+    BrowserModule, 
+    BrowserAnimationsModule, 
+    HttpClientModule, 
+    FormsModule, 
+    PrimeModule,
+    ToastModule
+  ],
+  declarations: [
+    AppComponent, 
+    ItemRecommendationComponent, 
+    LoadoutComponent, 
+    BossComponent
+  ],
   bootstrap: [AppComponent],
 })
 export class AppModule {}
