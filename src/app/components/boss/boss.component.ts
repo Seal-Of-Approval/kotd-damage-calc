@@ -43,7 +43,7 @@ export class BossComponent implements OnInit {
       return;
     try {
       this.fetching = true;
-      const url = `https://proxy.cors.sh/https://reddit.com/${id}/.json?raw_json=1`;
+      const url = `https://api.reddit.com/${id}/.json?raw_json=1`;
       const data: IRedditPost = <IRedditPost>await lastValueFrom(this.http.get(url));
       const elements = this.extractElements(data);
       const boss: IBoss = this.boss;
