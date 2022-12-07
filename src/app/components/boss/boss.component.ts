@@ -60,10 +60,10 @@ export class BossComponent implements OnInit {
 
   extractElements(data: IRedditPost){
     const text = JSON.stringify(data); // lazy regex 
-    const weaknessRE = /(?<Weakness>\w*(?=\sWeakness))/;
-    const resistanceRE = /(?<Resistance>\w*(?=\sResistance))/
-    const weaknesses =  [...new Set(weaknessRE.exec(text)?.map(x => Element[x]).filter(x => x))];
-    const resistances = [...new Set(resistanceRE.exec(text)?.map(x => Element[x]).filter(x => x))];
+    const weaknessRE = /(?<Weakness>\w*(?=\sWeakness))/g;
+    const resistanceRE = /(?<Resistance>\w*(?=\sResistance))/g;
+    const weaknesses =  [...new Set(Array.from(text.matchAll(weaknessRE), x => Element[x.shift()]).filter(x => x))];
+    const resistances =  [...new Set(Array.from(text.matchAll(resistanceRE), x => Element[x.shift()]).filter(x => x))];
     return {weaknesses, resistances}
   }
 }
