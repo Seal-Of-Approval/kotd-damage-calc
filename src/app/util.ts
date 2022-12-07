@@ -34,10 +34,10 @@ export function typeToIcon(type: Type) {
  */
 export function getDamageModifier(element: number, type: number) {
   let modifier = 1;
-  if (type < 0) modifier *= 0.9;
-  else if (type > 0) modifier *= 1.1;
-  if (element < 0) modifier *= 0.5;
-  else if (element > 0) modifier *= 2;
+  if (type < 0) modifier -= 0.1;
+  else if (type > 0) modifier += 0.1;
+  if (element < 0) modifier -= 0.45;
+  else if (element > 0) modifier += 0.55;
   return modifier;
 }
 
@@ -80,5 +80,7 @@ export function calculateDamage(loadout: Loadout, averageLevel: number, boss: IB
 }
 
 export function calculateLevelDamage(level: number) {
-  return 0.1 + 0.5 * (0.25 * level);
+  // old formula 0.1 + 0.5 * (0.25 * level);
+  // new formula for average between .1 to .25 
+  return .175 * level
 }
