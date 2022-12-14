@@ -12,6 +12,7 @@ export interface IWeapon extends IItem {
   averageDamage?: number;
   element: Element;
   type: Type;
+  level: number;
 }
 
 export interface IPotion extends IItem {}

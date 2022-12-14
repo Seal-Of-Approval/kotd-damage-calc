@@ -3,7 +3,7 @@ import { IBoss } from 'src/app/interfaces/boss';
 import { Element } from 'src/app/interfaces/element';
 import { IWeapon } from 'src/app/interfaces/item';
 import { Weapons } from 'src/app/items';
-import { getTypeData, typeToIcon } from 'src/app/util';
+import { getTypeData, getWeaponDamage, typeToIcon } from 'src/app/util';
 
 @Component({
   selector: 'app-item-recommendation',
@@ -13,12 +13,14 @@ import { getTypeData, typeToIcon } from 'src/app/util';
 export class ItemRecommendationComponent implements OnInit {
   Element = Element;
   typeToIcon = typeToIcon;
-
+  getWeaponDamage = (weapon: IWeapon) => Math.round((getWeaponDamage(weapon, this.averageLevel, this.boss) + Number.EPSILON) * 10) / 10 
   constructor() { }
 
   ngOnInit(): void {
   }
 
+  @Input() averageLevel: number;
+  @Input() maxLevel: number;
   @Input() boss: IBoss;
   @Output() selectRecommendation = new EventEmitter<IWeapon>();
 
@@ -44,7 +46,7 @@ export class ItemRecommendationComponent implements OnInit {
         x.type === typeData.weak &&
         !this.boss.resists.includes(x.element)
     ).sort(this.weaponSort.bind(this));
-    return element.concat(...type);
+    return element.concat(...type).filter(x => x.level > 0 && x.level <= this.maxLevel);
   }
 
   private weaponSort(a: IWeapon, b: IWeapon): number {
@@ -53,9 +55,11 @@ export class ItemRecommendationComponent implements OnInit {
     } else {
       if (this.boss.weaknesses.includes(b.element)) return 1;
     }
-    return a.averageDamage > b.averageDamage
+    const aDmg = getWeaponDamage(a, this.averageLevel, this.boss)
+    const bDmg = getWeaponDamage(b, this.averageLevel, this.boss)
+    return aDmg > bDmg
       ? -1
-      : a.averageDamage < b.averageDamage
+      : aDmg < bDmg
       ? 1
       : 0;
   }

@@ -2,17 +2,20 @@
     <ng-template pTemplate="header">
       <tr>
         <th>ID</th>
-        <th pSortableColumn="name" style="width:20%">
+        <th pSortableColumn="name" style="width:40%">
           Name <p-sortIcon field="name"></p-sortIcon>
         </th>
-        <th pSortableColumn="averageDamage" style="width:20%">
-          Damage <p-sortIcon field="averageDamage"></p-sortIcon>
+        <th style="width:30%">
+          Damage
         </th>
-        <th pSortableColumn="type" style="width:20%">
+        <th pSortableColumn="type" style="width:10%">
           Type <p-sortIcon field="type"></p-sortIcon>
         </th>
-        <th pSortableColumn="element" style="width:20%">
+        <th pSortableColumn="element" style="width:10%">
           Element <p-sortIcon field="element"></p-sortIcon>
+        </th>
+        <th pSortableColumn="element" style="width:10%">
+          Level <p-sortIcon field="element"></p-sortIcon>
         </th>
       </tr>
     </ng-template>
@@ -20,9 +23,10 @@
       <tr [pSelectableRow]="item">
         <td>{{ item.ID }}</td>
         <td>{{ item.name }}</td>
-        <td>{{ item.averageDamage }}</td>
+        <td>{{ getWeaponDamage(item) }}</td>
         <td>{{ typeToIcon(item.type) }}</td>
         <td>{{ Element[item.element] }}</td>
+        <td>{{ item.level }}</td>
       </tr>
     </ng-template>
   </p-table>
