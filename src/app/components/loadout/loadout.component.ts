@@ -26,12 +26,26 @@ export class LoadoutComponent implements OnInit {
     if(value != this.#averageLevel)
       this.averageLevelChange.emit(value);
     this.#averageLevel = value;
+    if(this.#maxLevel)
+      this.maxLevel = Math.max(this.#maxLevel, this.#averageLevel)
   }
   get averageLevel() {
     return this.#averageLevel;
   }
   #averageLevel: number;
+
+  @Input() set maxLevel(value:number){
+    if(value != this.#maxLevel)
+      this.maxLevelChange.emit(value);
+    this.#maxLevel = value;
+  }
+  get maxLevel() {
+    return this.#maxLevel;
+  }
+  #maxLevel: number;
+
   @Output() averageLevelChange = new EventEmitter<number>();
+  @Output() maxLevelChange = new EventEmitter<number>();
   suggestions: IWeapon[] = []
   get result() {
     return this.#result;

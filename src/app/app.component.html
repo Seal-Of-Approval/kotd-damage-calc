@@ -3,7 +3,7 @@
     <app-boss [boss]="boss"></app-boss>
   </p-card>
   <p-card header="Loadout" class="mb-4 card">
-    <app-loadout [loadout]="loadout" [(averageLevel)]="averageLevel"></app-loadout>
+    <app-loadout [loadout]="loadout" [(averageLevel)]="averageLevel" [(maxLevel)]="maxLevel"></app-loadout>
   </p-card>
   <p-card header="Average Damage" class="card">
     <div class="grid">
@@ -29,11 +29,11 @@
 <p-sidebar
 [(visible)]="display"
 position="right"
-[style]="{ width: '30em', maxWidth: '100vw' }"
+[style]="{ width: '40em', maxWidth: '100vw' }"
 >
 <ng-template pTemplate="header">Recommendations</ng-template>  
 <ng-template pTemplate="content">
-  <app-item-recommendation [boss]="boss" (selectRecommendation)="selectedRecommendation($event)"></app-item-recommendation>
+  <app-item-recommendation [boss]="boss" (selectRecommendation)="selectedRecommendation($event)" [(averageLevel)]="averageLevel" [(maxLevel)]="maxLevel"></app-item-recommendation>
   </ng-template>
 </p-sidebar>
 
