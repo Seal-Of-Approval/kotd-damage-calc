@@ -20,7 +20,7 @@
         (completeMethod)="search($event)"
       >
         <ng-template let-item pTemplate="selectedItem">
-          <span>{{ item.name }}</span>
+          <span>{{ typeToIcon(item.type) }}{{ item.ID }}:{{ item.name }}</span>
         </ng-template>
         <ng-template let-item pTemplate="item">
           <div>{{ typeToIcon(item.type) }}{{ item.name }}</div>
