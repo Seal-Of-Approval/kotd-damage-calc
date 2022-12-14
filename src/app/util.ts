@@ -69,14 +69,26 @@ export function calculateDamage(loadout: Loadout, averageLevel: number, boss: IB
         : typeData.strong === weapon.type
         ? -1
         : 0;
-    return (
-      curr +
-      val *
-        (averageBaseDamage +
-          calculateLevelDamage(averageLevel) +
-          weapon.averageDamage * getDamageModifier(element, type))
-    );
+    return (curr + val * getWeaponDamage(weapon, averageLevel, boss));
   }, 0);
+}
+
+export function getWeaponDamage(weapon: IWeapon, averageLevel: number, boss: IBoss){
+  const element = boss.weaknesses.includes(weapon.element)
+      ? 1
+      : boss.resists.includes(weapon.element)
+      ? -1
+      : 0;
+    const typeData = getTypeData(boss.type);
+    const type =
+      typeData.weak === weapon.type
+        ? 1
+        : typeData.strong === weapon.type
+        ? -1
+        : 0;
+    return (averageBaseDamage +
+      calculateLevelDamage(averageLevel) +
+      weapon.averageDamage * getDamageModifier(element, type))
 }
 
 export function calculateLevelDamage(level: number) {
