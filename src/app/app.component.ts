@@ -41,8 +41,7 @@ export class AppComponent implements OnInit {
   display = false;
   
   get damage() {
-    const dmg = calculateDamage(this.loadout, this.averageLevel, this.boss);
-    return Math.round((dmg + Number.EPSILON) * 10) / 10;
+    return calculateDamage(this.loadout, this.averageLevel, this.boss);
   }
   
   boss: IBoss = {

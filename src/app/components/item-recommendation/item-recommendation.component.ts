@@ -13,7 +13,7 @@ import { getTypeData, getWeaponDamage, typeToIcon } from 'src/app/util';
 export class ItemRecommendationComponent implements OnInit {
   Element = Element;
   typeToIcon = typeToIcon;
-  getWeaponDamage = (weapon: IWeapon) => Math.round((getWeaponDamage(weapon, this.averageLevel, this.boss) + Number.EPSILON) * 10) / 10 
+  getWeaponDamage = (weapon: IWeapon) => getWeaponDamage(weapon, this.averageLevel, this.boss)
   constructor() { }
 
   ngOnInit(): void {

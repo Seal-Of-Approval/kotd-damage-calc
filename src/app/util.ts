@@ -96,3 +96,7 @@ export function calculateLevelDamage(level: number) {
   // new formula for average between .1 to .25 
   return .175 * level
 }
+
+export function maxDamage(boss: IBoss){
+  return 0.08*(boss.maxHealth**0.15)*(boss.health**0.5)*(boss.level**1.7)
+}

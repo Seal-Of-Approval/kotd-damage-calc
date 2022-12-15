@@ -11,6 +11,8 @@ import { BossComponent } from './components/boss/boss.component';
 import { HttpClientModule } from '@angular/common/http';
 import { ToastModule } from 'primeng/toast'
 import { MessageService } from 'primeng/api';
+import { RepeatPipe } from './pipes/repeat.pipe';
+import { FloorPipe } from './pipes/floor.pipe';
 
 @NgModule({
   imports: [
@@ -19,13 +21,15 @@ import { MessageService } from 'primeng/api';
     HttpClientModule, 
     FormsModule, 
     PrimeModule,
-    ToastModule
+    ToastModule,
   ],
   declarations: [
     AppComponent, 
     ItemRecommendationComponent, 
     LoadoutComponent, 
-    BossComponent
+    BossComponent,
+    RepeatPipe,
+    FloorPipe,
   ],
   providers: [MessageService],
   bootstrap: [AppComponent],

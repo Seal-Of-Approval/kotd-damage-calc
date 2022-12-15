@@ -1,4 +1,13 @@
 <div class="grid">
+    <div class="col-4" *ngIf="boss.ID">
+      ❤️ {{boss.health}}/{{boss.maxHealth}}
+    </div>
+    <div class="col-4" *ngIf="boss.ID">
+      {{'★' | repeat:boss.level}}
+    </div>
+    <div class="col-4" *ngIf="boss.ID">
+      💪 {{maxDamage(boss) | floor}}
+    </div>
     <div class="col-12">
         <div class="p-inputgroup">
             <input #bossID type="text" pInputText placeholder="ID">   

@@ -23,7 +23,7 @@
       <tr [pSelectableRow]="item">
         <td>{{ item.ID }}</td>
         <td>{{ item.name }}</td>
-        <td>{{ getWeaponDamage(item) }}</td>
+        <td>{{ getWeaponDamage(item) | floor }}</td>
         <td>{{ typeToIcon(item.type) }}</td>
         <td>{{ Element[item.element] }}</td>
         <td>{{ item.level }}</td>

@@ -8,7 +8,7 @@
   <p-card header="Average Damage" class="card">
     <div class="grid">
       <div class="col-12">
-        {{ damage }}
+        {{ damage | floor }}
       </div>
       <div class="col-12">
         <button type="button" pButton pRipple styleClass="p-button-warn" label="Reset" (click)="reset()"></button>      
