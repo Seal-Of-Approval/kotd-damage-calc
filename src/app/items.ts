@@ -113,7 +113,7 @@ export const Weapons: IWeapon[] = [
     averageDamage: 5,
     type: Type.Melee,
     element: Element.Sun,
-    level: 20,
+    level: 15,
   },
   {
     ID: 16,
@@ -121,7 +121,7 @@ export const Weapons: IWeapon[] = [
     averageDamage: 5.5,
     type: Type.Melee,
     element: Element.Synthetic,
-    level: 20,
+    level: 15,
   },
   {
     ID: 17,
@@ -129,7 +129,7 @@ export const Weapons: IWeapon[] = [
     averageDamage: 5.5,
     type: Type.Magic,
     element: Element.Moon,
-    level: 20,
+    level: 15,
   },
   {
     ID: 18,
@@ -137,7 +137,7 @@ export const Weapons: IWeapon[] = [
     averageDamage: 6.5,
     type: Type.Magic,
     element: Element.Cursed,
-    level: 20,
+    level: 15,
   },
   {
     ID: 19,
@@ -145,7 +145,7 @@ export const Weapons: IWeapon[] = [
     averageDamage: 2.0,
     type: Type.Melee,
     element: Element.Synthetic,
-    level: 20,
+    level: 15,
   },
   {
     ID: 20,
@@ -153,7 +153,7 @@ export const Weapons: IWeapon[] = [
     averageDamage: 7,
     type: Type.Melee,
     element: Element.Earth,
-    level: 25,
+    level: 20,
   },
   {
     ID: 21,
@@ -161,7 +161,7 @@ export const Weapons: IWeapon[] = [
     averageDamage: 7,
     type: Type.Magic,
     element: Element.Fire,
-    level: 25,
+    level: 20,
   },
   {
     ID: 22,
