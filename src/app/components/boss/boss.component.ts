@@ -7,6 +7,8 @@ import { HttpClient } from '@angular/common/http';
 import { lastValueFrom } from 'rxjs';
 import { IComment, IRedditPost } from 'src/app/interfaces/reddit';
 import { MessageService } from 'primeng/api';
+import { Router, ActivatedRoute } from '@angular/router';
+import { Meta } from '@angular/platform-browser';
 // import { MessageService } from 'primeng/api';
 @Component({
   selector: 'app-boss',
@@ -19,7 +21,16 @@ export class BossComponent implements OnInit {
   maxDamage = maxDamage
   fetching = false;
 
-  @Input() boss: IBoss;
+  @Input() set boss(value: IBoss) {
+    const previous = this.#boss;
+    this.#boss = value;
+    if(previous?.ID !== this.#boss.ID)
+      this.fetchBoss(this.#boss.ID).catch(console.error)
+  }
+  get boss(): IBoss {
+    return this.#boss;
+  }
+  #boss: IBoss;
   
   weaknesses: Option<Element>[] = Object.keys(Element)
     .map((x) => Element[x])
@@ -32,7 +43,12 @@ export class BossComponent implements OnInit {
     .map((x: string) => ({ label: x, value: Type[x] }));
 
 
-  constructor(private http: HttpClient, private messageService: MessageService) { }
+  constructor(
+    private http: HttpClient, 
+    private messageService: MessageService,
+    private router: Router,
+    private activatedRoute: ActivatedRoute,
+    private metaService: Meta) { }
 
   ngOnInit(): void {
   }
@@ -41,6 +57,11 @@ export class BossComponent implements OnInit {
     id = id?.trim() ?? "";
     if(id === "")
       return;
+    const idRegex = /kickopenthedoor\/(?:comments\/)?([a-zA-Z0-9]*)/i
+    const result = id.match(idRegex);
+    if(result?.length === 2)
+      id = result[1];
+      
     try {
       this.fetching = true;
       const url = `https://api.reddit.com/${id}/.json?raw_json=1`;
@@ -48,6 +69,16 @@ export class BossComponent implements OnInit {
       const tmp = this.extractBoss(data)
       this.boss = tmp;
       this.messageService.add({severity: "success", summary:"Fetched boss", detail: "Elements updated"});
+      this.metaService.updateTag({property: "og:title", content: this.#boss.name})
+      this.metaService.updateTag({property: "og:description", content: `Weak to: ${[Type[this.boss.type], ...this.#boss.weaknesses.map(x => Element[x])].filter(x => x).join(', ')}`})
+      this.metaService.updateTag({property: "og:url", content: `//reddit.com/${this.#boss.ID}`})
+      this.router.navigate(
+        [], 
+        {
+          relativeTo: this.activatedRoute,
+          queryParams: {boss: id}, 
+          queryParamsHandling: 'merge',
+        });
     } catch (error) {
       this.messageService.add({severity: "error", summary:"Error fetching boss with that ID.", detail: JSON.stringify(error)});
       console.error(error)
@@ -57,7 +88,6 @@ export class BossComponent implements OnInit {
   }
 
   extractBoss(data: IRedditPost): IBoss{
-    console.log(data)
     const flair = data[0].data.children[0].data.link_flair_text; 
     const health = this.getHealth(flair);
     const elements = this.extractElements(data);

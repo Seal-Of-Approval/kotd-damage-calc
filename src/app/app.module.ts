@@ -13,6 +13,7 @@ import { ToastModule } from 'primeng/toast'
 import { MessageService } from 'primeng/api';
 import { RepeatPipe } from './pipes/repeat.pipe';
 import { FloorPipe } from './pipes/floor.pipe';
+import { RouterModule } from '@angular/router';
 
 @NgModule({
   imports: [
@@ -22,6 +23,7 @@ import { FloorPipe } from './pipes/floor.pipe';
     FormsModule, 
     PrimeModule,
     ToastModule,
+    RouterModule.forRoot([]),
   ],
   declarations: [
     AppComponent, 

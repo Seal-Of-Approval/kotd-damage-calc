@@ -1,4 +1,4 @@
-import { Component, OnInit, VERSION } from "@angular/core";
+import { Component, OnDestroy, OnInit, VERSION } from "@angular/core";
 import { Weapons } from "./items";
 import { IBoss } from "./interfaces/boss";
 import { Element } from "./interfaces/element";
@@ -13,13 +13,15 @@ import {
   toWeapon,
   typeToIcon,
 } from "./util";
+import { ActivatedRoute } from "@angular/router";
+import { Subscription } from "rxjs";
 
 @Component({
   selector: "app-root",
   templateUrl: "./app.component.html",
   styleUrls: ["./app.component.css"],
 })
-export class AppComponent implements OnInit {
+export class AppComponent implements OnInit, OnDestroy {
   Element = Element;
   typeToIcon = typeToIcon;
   #averageLevel = 15;
@@ -53,10 +55,21 @@ export class AppComponent implements OnInit {
   };
   
   loadout: Loadout = {};
+  #routeSubscription: Subscription;
+  constructor(private route: ActivatedRoute){
+    this.#routeSubscription = this.route.queryParams.subscribe(x => {
+      if(this.boss.ID != x.boss)
+        this.boss = <IBoss>{ID: x.boss}
+    })
+  }
 
   ngOnInit(): void {
     this.averageLevel = Number(localStorage.getItem("averageLevel") ?? '15');
     this.maxLevel = Number(localStorage.getItem("maxLevel") ?? '45')
+  }
+
+  ngOnDestroy(): void {
+      this.#routeSubscription?.unsubscribe();
   }
 
   selectedRecommendation(value: IWeapon) {
