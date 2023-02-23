@@ -3,6 +3,7 @@ import { Type } from './interfaces/type';
 import { IWeapon } from './interfaces/item';
 import { Loadout } from './interfaces/raid';
 import { IBoss } from './interfaces/boss';
+import { Element } from 'src/app/interfaces/element';
 
 export const averageBaseDamage = 3.5;
 
@@ -23,6 +24,31 @@ export function typeToIcon(type: Type) {
       return '🏹';
     case Type.Magic:
       return '🔮';
+  }
+}
+
+export function elementToIcon(element: Element) {
+  switch (element) {
+    case Element.Air:
+      return ':element_air:';
+    case Element.Blessed:
+      return ':element_Bless:';
+    case Element.Cursed:
+      return ':element_Curse:';
+    case Element.Earth:
+      return ':element_earth:';
+    case Element.Fire:
+      return ':element_Fire:';
+    case Element.Moon:
+      return ':element_Moon:';
+    case Element.Organic:
+      return ':element_Organic:';
+    case Element.Sun:
+      return ':element_Sun:';
+    case Element.Synthetic:
+      return ':element_Synthetic:';
+    case Element.Water:
+      return ':element_Water:';
   }
 }
 
@@ -60,35 +86,35 @@ export function calculateDamage(loadout: Loadout, averageLevel: number, boss: IB
     const element = boss.weaknesses.includes(weapon.element)
       ? 1
       : boss.resists.includes(weapon.element)
-      ? -1
-      : 0;
+        ? -1
+        : 0;
     const typeData = getTypeData(boss.type);
     const type =
       typeData.weak === weapon.type
         ? 1
         : typeData.strong === weapon.type
-        ? -1
-        : 0;
+          ? -1
+          : 0;
     return (curr + val * getWeaponDamage(weapon, averageLevel, boss));
   }, 0);
 }
 
-export function getWeaponDamage(weapon: IWeapon, averageLevel: number, boss: IBoss){
+export function getWeaponDamage(weapon: IWeapon, averageLevel: number, boss: IBoss) {
   const element = boss.weaknesses.includes(weapon.element)
-      ? 1
-      : boss.resists.includes(weapon.element)
+    ? 1
+    : boss.resists.includes(weapon.element)
       ? -1
       : 0;
-    const typeData = getTypeData(boss.type);
-    const type =
-      typeData.weak === weapon.type
-        ? 1
-        : typeData.strong === weapon.type
+  const typeData = getTypeData(boss.type);
+  const type =
+    typeData.weak === weapon.type
+      ? 1
+      : typeData.strong === weapon.type
         ? -1
         : 0;
-    return (averageBaseDamage +
-      calculateLevelDamage(averageLevel) +
-      weapon.averageDamage * getDamageModifier(element, type))
+  return (averageBaseDamage +
+    calculateLevelDamage(averageLevel) +
+    weapon.averageDamage * getDamageModifier(element, type))
 }
 
 export function calculateLevelDamage(level: number) {
@@ -97,6 +123,6 @@ export function calculateLevelDamage(level: number) {
   return .175 * level
 }
 
-export function maxDamage(boss: IBoss){
-  return 0.08*(boss.maxHealth**0.15)*(boss.health**0.5)*(boss.level**1.7)
+export function maxDamage(boss: IBoss) {
+  return 0.08 * (boss.maxHealth ** 0.15) * (boss.health ** 0.5) * (boss.level ** 1.7)
 }

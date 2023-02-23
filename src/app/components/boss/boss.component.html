@@ -12,7 +12,8 @@
         <div class="p-inputgroup">
             <input #bossID [(ngModel)]="boss.ID" type="text" pInputText placeholder="ID">   
             <button type="button" pButton pRipple icon="pi pi-check" styleClass="p-button-warn" [disabled]="bossID.value === '' || fetching" (click)="fetchBoss(bossID.value)"></button>      
-        </div>
+            <p-button *ngIf="boss.health"  icon="pi pi-copy" class="" (click)="copy()"></p-button>
+          </div>
     </div>
     <div class="col-12 md:col-4">
       <div class="flex flex-column input">

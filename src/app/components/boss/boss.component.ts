@@ -2,7 +2,7 @@ import { Component, Input, OnInit } from '@angular/core';
 import { IBoss } from 'src/app/interfaces/boss';
 import { Element } from 'src/app/interfaces/element';
 import { Type } from 'src/app/interfaces/type';
-import { maxDamage, Option } from 'src/app/util';
+import { maxDamage, Option, elementToIcon } from 'src/app/util';
 import { HttpClient } from '@angular/common/http';
 import { lastValueFrom } from 'rxjs';
 import { IComment, IRedditPost } from 'src/app/interfaces/reddit';
@@ -149,5 +149,28 @@ export class BossComponent implements OnInit {
     if(numbers.length < 2)
       return {health: 0, maxHealth: 0};
     return {health: Number(numbers[0]), maxHealth: Number(numbers[1])}
+  }
+
+  public async copy(){
+    try {
+      await navigator.clipboard.writeText(`
+@NOTIFY GATHER for **${this.boss.name}
+
+**Level**:\t\t${this.boss.level} 
+**HP**: \t\t\t**${this.boss.health}**/${this.boss.maxHealth}
+**Damage**: \t${Math.floor(this.maxDamage(this.boss))}
+**DMG**: \t\tXX
+
+**Weakness**: \t${this.boss.weaknesses.map(x => elementToIcon(x)).join(' ')}
+**Resist**: \t\t${this.boss.resists.map(x => elementToIcon(x)).join(' ')}
+
+https://reddit.com/${this.boss.ID}
+`);
+
+      this.messageService.add({severity: "success", summary:"Copied boss to clipboard"});
+    } catch (error) {
+      this.messageService.add({severity: "error", summary:"Error copying to clipboard", detail: error.msg ?? error});
+    }
+
   }
 }
