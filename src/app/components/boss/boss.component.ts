@@ -154,11 +154,10 @@ export class BossComponent implements OnInit {
   public async copy(){
     try {
       await navigator.clipboard.writeText(`
-@NOTIFY GATHER for **${this.boss.name}
+@NOTIFY GATHER for **${this.boss.name}**
 
 **Level**:\t\t${this.boss.level} 
 **HP**: \t\t\t**${this.boss.health}**/${this.boss.maxHealth}
-**Damage**: \t${Math.floor(this.maxDamage(this.boss))}
 **DMG**: \t\tXX
 
 **Weakness**: \t${this.boss.weaknesses.map(x => elementToIcon(x)).join(' ')}
