@@ -163,7 +163,7 @@ export class BossComponent implements OnInit {
 **Weakness**: \t${this.boss.weaknesses.map(x => elementToIcon(x)).join(' ')}
 **Resist**: \t\t${this.boss.resists.map(x => elementToIcon(x)).join(' ')}
 
-https://reddit.com/${this.boss.ID}
+https://reddit.com/r/kickopenthedoor/comments/${this.boss.ID}
 `);
 
       this.messageService.add({severity: "success", summary:"Copied boss to clipboard"});
